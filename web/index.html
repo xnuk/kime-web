@@ -10,6 +10,15 @@
 				margin: 0;
 				padding: 0;
 				box-sizing: border-box;
+				background: transparent;
+				color: inherit
+			}
+
+			@media (prefers-color-scheme: dark) {
+				html {
+					background: #000;
+					color: #ddd;
+				}
 			}
 
 			html,
@@ -42,6 +51,7 @@
 			textarea {
 				flex-grow: 1;
 				resize: none;
+				border: 1px solid currentColor;
 			}
 
 			#config,

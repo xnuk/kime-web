@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: |
           ~/.cargo/registry/
@@ -18,7 +18,7 @@ jobs:
           target/
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: |
           ~/.local/share/pnpm
@@ -49,7 +49,7 @@ jobs:
         swc-minifier --config=swc-minifier.json dist/web/index.js > dist/web/index.min.js &&
         mv dist/web/index.min.js dist/web/index.js
 
-    - uses: actions/upload-pages-artifact@v1
+    - uses: actions/upload-pages-artifact@v3
       with:
         path: dist/web/
 
@@ -65,5 +65,5 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/deploy-pages@v1
+    - uses: actions/deploy-pages@v4
       id: deployment

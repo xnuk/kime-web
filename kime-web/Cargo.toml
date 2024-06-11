@@ -12,7 +12,6 @@ crate-type = ['cdylib']
 [dependencies]
 serde_yaml = '0.9.25'
 gloo-events = '0.2.0'
-wee_alloc = '0.4.5'
 
 [dependencies.serde]
 version = '1.0.188'

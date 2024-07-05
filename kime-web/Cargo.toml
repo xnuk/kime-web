@@ -10,26 +10,26 @@ rust-version = '1.78.0'
 crate-type = ['cdylib']
 
 [dependencies]
-serde_yaml = '0.9.25'
+serde_yaml = '0.8.26'
 gloo-events = '0.2.0'
 
 [dependencies.serde]
-version = '1.0.188'
+version = '1.0.203'
 features = ['derive']
 
 [dependencies.kime-engine-core]
 git = 'https://github.com/xnuk/kime'
-branch = 'edition-2021'
+tag = 'v4.0.0-pre.1'
 default-features = false
 features = []
 
 [dependencies.kime-engine-backend]
 git = 'https://github.com/xnuk/kime'
-branch = 'edition-2021'
+tag = 'v4.0.0-pre.1'
 
 [dependencies.kime-engine-backend-hangul]
 git = 'https://github.com/xnuk/kime'
-branch = 'edition-2021'
+tag = 'v4.0.0-pre.1'
 
 [dependencies.web-sys]
 version = '0.3.69'

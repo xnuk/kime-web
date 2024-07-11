@@ -59,10 +59,7 @@ const reload = (() => {
 	return reloader
 })()
 
-const debounced = <F extends (...args: any[]) => any>(
-	func: F,
-	delay: number = 50,
-) => {
+const debounced = <F extends (...args: any[]) => any>(func: F, delay = 50) => {
 	let timeout = setTimeout(() => {})
 
 	return (...args: Parameters<F>) => {
@@ -74,7 +71,7 @@ const debounced = <F extends (...args: any[]) => any>(
 const fetcher = debounced((url: URL, value: string) => {
 	importUrl(url)
 		.then(config => {
-			if (configInput.value != value) return
+			if (configInput.value !== value) return
 			configInput.value = config
 			errorSlot.textContent = ''
 			reload()
@@ -95,7 +92,7 @@ configInput.addEventListener('input', () => {
 })
 
 textInput.addEventListener('kimeinputcategorychange', e => {
-	const category = (e as any).detail as 'latin' | 'hangul'
+	const category = (e as CustomEvent<'hangul' | 'latin'>).detail
 	const categoryText = category === 'hangul' ? '한글' : category
 
 	if (status.textContent !== categoryText) {

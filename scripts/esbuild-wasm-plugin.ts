@@ -7,7 +7,6 @@ import {
 	readFile,
 	readTextFile,
 } from './fs.ts'
-import { fileUrl } from './url.ts'
 
 interface RenamedMap {
 	readonly module: Readonly<Record<string, string>>
@@ -16,12 +15,12 @@ interface RenamedMap {
 
 const getRenamedModule = (r: RenamedMap | null, id: string) => ({
 	id,
-	original: (r && r.module[id]) || id,
+	original: r?.module[id] || id,
 })
 
 const getRenamedFunc = (r: RenamedMap | null, id: string) => ({
 	id,
-	original: (r && r.functions[id]) || id,
+	original: r?.functions[id] || id,
 })
 
 const makeImports = (
@@ -35,10 +34,12 @@ const makeImports = (
 		}
 	}
 	for (const { module, name } of imports) {
-		const data = (map[module] ||= {
+		map[module] ||= {
 			meta: getRenamedModule(renamedMap, module),
 			data: [],
-		}).data
+		}
+
+		const data = map[module].data
 
 		data.push(getRenamedFunc(renamedMap, name))
 	}

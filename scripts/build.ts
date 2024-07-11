@@ -6,7 +6,7 @@ import {
 import { directoryUrl, urlToPath } from './url.ts'
 import { watchDir } from './fs.ts'
 
-const promisedDebouncer = (func: () => Promise<void>, delay: number = 300) => {
+const promisedDebouncer = (func: () => Promise<void>, delay = 300) => {
 	let timeout = setTimeout(() => {})
 
 	const run = () => {
@@ -17,7 +17,7 @@ const promisedDebouncer = (func: () => Promise<void>, delay: number = 300) => {
 	return run
 }
 
-const watch = async (outdir: URL, port: number = 8080) => {
+const watch = async (outdir: URL, port = 8080) => {
 	const wasmParams = await wasmBuildParams(
 		directoryUrl(outdir, 'wasm-pkg'),
 		undefined,
@@ -37,7 +37,10 @@ const watch = async (outdir: URL, port: number = 8080) => {
 		minify: false,
 	})
 
-	return () => (wasmCancel(), webCancel())
+	return () => {
+		wasmCancel()
+		webCancel()
+	}
 }
 
 const build = async (outdir: URL) => {
@@ -55,9 +58,7 @@ const build = async (outdir: URL) => {
 const main = () => {
 	const port = +(process.argv.slice(2).pop() || 0)
 	const outdir = directoryUrl('./dist/')
-	console.log('port', port)
 
 	port > 0 ? watch(outdir, port) : build(outdir)
 }
-
 main()

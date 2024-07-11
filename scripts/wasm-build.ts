@@ -112,7 +112,7 @@ const cargoMetadata = async () => {
 export const buildParams = async (
 	outDir: URL,
 	projectName?: string,
-	verbose: boolean = false,
+	verbose = false,
 ): Promise<Params> => {
 	const { cargoTargetDir, candidates, runner } = await cargoMetadata()
 	let pkg = null as null | undefined | Pkg
@@ -274,7 +274,7 @@ const writePackageJson = ({ outDir, pkg, verbose }: Params) => {
 	return writeTextFile(path, JSON.stringify(data, null, 2))
 }
 
-export const build = async (params: Params) => {
+export const build = async (params: Params): Promise<void> => {
 	await cargoBuild(params)
 	await wasmBindgen(params)
 	await Promise.all([

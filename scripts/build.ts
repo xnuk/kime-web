@@ -8,25 +8,10 @@ import { watchDir } from './fs.ts'
 
 const promisedDebouncer = (func: () => Promise<void>, delay: number = 300) => {
 	let timeout = setTimeout(() => {})
-	let finished = true
-	let waited = false
 
 	const run = () => {
-		if (finished) {
-			timeout = setTimeout(
-				() => {
-					finished = false
-					func().finally(() => {
-						finished = true
-						if (waited) run()
-					})
-				},
-				waited ? 0 : delay,
-			)
-			waited = false
-		} else {
-			waited = true
-		}
+		clearTimeout(timeout)
+		timeout = setTimeout(func, delay)
 	}
 
 	return run

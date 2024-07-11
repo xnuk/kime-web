@@ -2,15 +2,15 @@
 	"name": "kime-web-playground",
 	"version": "0.1.0",
 	"type": "module",
-	"packageManager": "pnpm@8.7.0",
+	"packageManager": "pnpm@9.4.0",
 	"scripts": {
 		"build": "esbuild scripts/build.ts --bundle --format=esm --platform=node --external:esbuild --outfile=dist/build.js && node dist/build.js",
 		"dev": "pnpm build 8080"
 	},
 	"devDependencies": {
-		"@types/node": "^20.5.6",
-		"@xnuk/tsconfig": "^3.0.0",
-		"esbuild": "^0.19.2",
-		"typescript": "^5.1.6"
+		"@types/node": "^20.14.10",
+		"@xnuk/tsconfig": "^4.0.1",
+		"esbuild": "^0.23.0",
+		"typescript": "^5.5.3"
 	}
 }

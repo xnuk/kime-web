@@ -1,15 +1,11 @@
-use js_sys::{JsString, Object};
+use js_sys::JsString;
 use wasm_bindgen::prelude::*;
-use web_sys::{Element, EventTarget, HtmlElement, Node};
+use web_sys::EventTarget;
 
 #[wasm_bindgen]
 extern "C" {
 	#[wasm_bindgen(
-		extends = HtmlElement,
-		extends = Element,
-		extends = Node,
 		extends = EventTarget,
-		extends = Object,
 		js_name = ___private___TextInput,
 		typescript_type = "HTMLTextAreaElement | HTMLInputElement",
 	)]

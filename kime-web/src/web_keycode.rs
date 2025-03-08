@@ -173,8 +173,7 @@ pub fn from_code_with_modifiers(code: &str, modifier: Modifier) -> Option<Key> {
 #[inline]
 pub fn from_keyboard_event(event: &KeyboardEvent) -> Option<Key> {
 	// if IME processes this
-	if event.key().to_ascii_lowercase() == "process" || event.key_code() == 229
-	{
+	if event.key().eq_ignore_ascii_case("process") || event.key_code() == 229 {
 		return None;
 	}
 

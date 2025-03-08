@@ -2,7 +2,6 @@ use gloo_events::{EventListener, EventListenerOptions};
 use js_sys::JsString;
 use kime_engine_core::{InputCategory, InputResult};
 use wasm_bindgen::prelude::{wasm_bindgen, JsCast, JsError, JsValue};
-use web_sys::console;
 use web_sys::CustomEvent;
 use web_sys::CustomEventInit;
 use web_sys::KeyboardEvent;
@@ -25,11 +24,6 @@ pub struct MountedIME(Source<Engine>);
 #[wasm_bindgen]
 pub fn install(config: &str, target: TextInput) -> Result<MountedIME, JsError> {
 	Engine::install(config, target).map_err(|v| v.into())
-}
-
-#[inline]
-fn log(val: impl Into<JsValue>) {
-	console::log_1(&val.into());
 }
 
 impl Engine {
@@ -124,15 +118,9 @@ impl Engine {
 				self.dispatch_category_change_event().ok();
 			}
 
-			// if result.contains(InputResult::NOT_READY) {
-			// 	log("not ready");
-			// }
-
 			if is_consumed || is_commit || is_preedit || was_preedit {
 				self.commit();
 			}
-
-		// log(format!("consume: {is_consumed} / commit: {is_commit} / preedit: {is_preedit}"));
 		} else if was_preedit {
 			self.engine.clear_preedit();
 			self.commit();
@@ -165,7 +153,5 @@ impl Engine {
 
 		input.set_value(before.concat(&commit).concat(&preedit).concat(&after));
 		input.set_selection_range(new_start, new_end).ok();
-
-		// log(format!("preedit: {preedit:?} / commit: {commit:?} / selection: ({start}, {end}) -> ({new_start}, {new_end}))"));
 	}
 }

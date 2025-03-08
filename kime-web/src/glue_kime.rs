@@ -2,8 +2,7 @@ use std::collections::HashMap;
 
 use kime_engine_backend_hangul::{builtin_layouts, HangulData, Layout};
 use kime_engine_core::{
-	Config, EngineConfig, InputCategory, InputEngine, InputMode, InputResult,
-	Key,
+	Config, EngineConfig, InputCategory, InputEngine, InputResult, Key,
 };
 use serde::Deserialize;
 
@@ -71,16 +70,6 @@ impl KimeEngine {
 	}
 
 	#[inline]
-	pub fn set_input_category(&mut self, category: InputCategory) {
-		self.engine.set_input_category(category)
-	}
-
-	#[inline]
-	pub fn set_input_mode(&mut self, mode: InputMode) -> bool {
-		self.engine.set_input_mode(mode)
-	}
-
-	#[inline]
 	pub fn category(&self) -> InputCategory {
 		self.engine.category()
 	}
@@ -93,11 +82,6 @@ impl KimeEngine {
 	#[inline]
 	pub fn clear_preedit(&mut self) {
 		self.engine.clear_preedit()
-	}
-
-	#[inline]
-	pub fn remove_preedit(&mut self) {
-		self.engine.remove_preedit()
 	}
 
 	#[inline]
@@ -114,17 +98,5 @@ impl KimeEngine {
 	pub fn reset(&mut self) {
 		self.engine.reset();
 		self.last_input_result = InputResult::empty();
-	}
-
-	#[inline]
-	pub fn check_ready(&mut self) -> bool {
-		self.engine.check_ready()
-	}
-
-	#[inline]
-	pub fn end_ready(&mut self) -> InputResult {
-		let result = self.engine.end_ready();
-		self.last_input_result = result;
-		result
 	}
 }

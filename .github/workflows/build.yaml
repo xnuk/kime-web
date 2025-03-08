@@ -5,25 +5,21 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
 
-    - uses: actions/cache@v4
+    - uses: dtolnay/rust-toolchain@stable
       with:
-        path: |
-          ~/.cargo/registry/
-          ~/.cargo/git/
-          target/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+        targets: wasm32-unknown-unknown
+    - uses: Swatinem/rust-cache@v2
 
-    - uses: actions/cache@v4
+    - uses: pnpm/action-setup@v4
+    - uses: actions/setup-node@v4
       with:
-        path: |
-          ~/.local/share/pnpm
-          ~/.cache/pnpm
-        key: ${{ runner.os }}-pnpm-$${{ hashFiles('**/pnpm-lock.yaml') }}
+        node-version: 22
+        cache: pnpm
 
     - run: |
         mkdir -p ~/.local/bin
@@ -37,13 +33,8 @@ jobs:
 
         echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
-    - run: corepack enable
-    - run: pnpm install --frozen-lockfile
-
-    - run: rustup default stable
-    - run: rustup target add wasm32-unknown-unknown
-
-    - run: pnpm run build
+    - run: pnpm install
+    - run: pnpm build
 
     - run: >
         swc-minifier --config=swc-minifier.json dist/web/index.js > dist/web/index.min.js &&

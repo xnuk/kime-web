@@ -2,7 +2,7 @@
 	"name": "kime-web-playground",
 	"version": "0.1.0",
 	"type": "module",
-	"packageManager": "pnpm@9.4.0",
+	"packageManager": "pnpm@10.6.1",
 	"scripts": {
 		"build": "esbuild scripts/build.ts --bundle --format=esm --platform=node --external:esbuild --outfile=dist/build.js && node dist/build.js",
 		"dev": "pnpm build 8080"

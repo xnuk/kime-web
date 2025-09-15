@@ -1,0 +1,15 @@
+# # cannot generate lockfile for now
+# [settings]
+# experimental = true
+# lockfile = true
+
+[tools]
+'github:WebAssembly/binaryen' = 'version_124'
+'github:wasm-bindgen/wasm-bindgen' = '0.2.101'
+pnpm = '10.16.1'
+
+[tasks.build]
+run = 'pnpm i && pnpm build'
+
+[tasks.dev]
+run = 'pnpm i && pnpm dev'

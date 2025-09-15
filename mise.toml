@@ -6,11 +6,10 @@
 [tools]
 'github:WebAssembly/binaryen' = 'version_124'
 'github:wasm-bindgen/wasm-bindgen' = '0.2.101'
-pnpm = '10.16.1'
-node = '24'
+bun = '1.2.22'
 
 [tasks.build]
-run = 'pnpm i && pnpm build'
+run = 'bun i && bun run build'
 
 [tasks.dev]
-run = 'pnpm i && pnpm dev'
+run = 'bun i && bun run dev'

@@ -84,7 +84,9 @@ const makeExports = (
 }
 
 const generateWasmModule = async (path: string): Promise<string> => {
-	const mod = await readFile(path).then(WebAssembly.compile)
+	const mod = await readFile(path).then(x =>
+		WebAssembly.compile(x as Buffer<ArrayBuffer>),
+	)
 	const renamedMap = await readTextFile(path + '.renamed.json').then(
 		v => {
 			const json = JSON.parse(v) as unknown

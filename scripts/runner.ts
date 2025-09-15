@@ -6,7 +6,17 @@ import type {
 	StdioPipe,
 } from 'node:child_process'
 
-export const Runner = (defaultOptions: SpawnOptions) => {
+type CommandRunner<T> = (
+	command: string,
+	...args: readonly string[]
+) => Promise<T>
+
+export const Runner = (
+	defaultOptions: SpawnOptions,
+): {
+	readonly run: CommandRunner<void>
+	readonly read: CommandRunner<Blob>
+} => {
 	const wrapper =
 		<
 			O extends SpawnOptionsWithStdioTuple<
@@ -24,17 +34,17 @@ export const Runner = (defaultOptions: SpawnOptions) => {
 					: void
 			>((ok, error) => {
 				const child = spawn(command, args, options)
-				const buffers: Uint8Array[] = []
+				const buffers: Uint8Array<ArrayBuffer>[] = []
 
 				if (child.stdout != null) {
 					child.stdout.on('data', (data: Buffer) =>
-						buffers.push(data),
+						buffers.push(data as Uint8Array<ArrayBuffer>),
 					)
 				}
 
 				if (child.stderr != null) {
 					child.stderr.on('data', (data: Buffer) =>
-						buffers.push(data),
+						buffers.push(data as Uint8Array<ArrayBuffer>),
 					)
 				}
 

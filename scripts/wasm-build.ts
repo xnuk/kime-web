@@ -190,6 +190,8 @@ const wasmOpt = async ({ runner, outDir, pkg, verbose }: Params) => {
 			'--quiet',
 			'--fast-math',
 			'--minify-imports-and-exports-and-modules',
+			'--enable-bulk-memory',
+			'--all-features',
 			'-O',
 			urlToPath(wasmPath),
 			'-o',

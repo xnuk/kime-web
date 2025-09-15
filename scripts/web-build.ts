@@ -48,7 +48,7 @@ export const build = async ({
 
 	if (port != null) {
 		const served = await context.serve({ port })
-		console.log(`running at ${served.host}:${served.port}`)
+		console.log(`running at ${served.hosts[0]}:${served.port}`)
 		await context.watch()
 		return () => context.dispose()
 	}

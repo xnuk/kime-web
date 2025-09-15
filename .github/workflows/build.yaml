@@ -10,6 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    # Use mise
+    - uses: jdx/mise-action@v2
+
     # Setup Rust environment & test codes
     - uses: dtolnay/rust-toolchain@stable
       with:
@@ -19,31 +22,7 @@ jobs:
     - run: cargo clippy --no-deps -- -D warnings
     - run: cargo test
 
-    # Setup node environment
-    - uses: pnpm/action-setup@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 22
-        cache: pnpm
-
-    - run: |
-        mkdir -p ~/.local/bin
-        cd ~/.local/bin
-
-        curl https://zyedidia.github.io/eget.sh | sh
-
-        ./eget xnuk/swc-minifier --tag=0.2.3
-        ./eget WebAssembly/binaryen --tag=version_117 --file=wasm-opt
-        ./eget rustwasm/wasm-bindgen --tag=0.2.92
-
-        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-
-    - run: pnpm install
-    - run: pnpm build
-
-    - run: >
-        swc-minifier --config=swc-minifier.json dist/web/index.js > dist/web/index.min.js &&
-        mv dist/web/index.min.js dist/web/index.js
+    - run: mise run build
 
     - uses: actions/upload-pages-artifact@v3
       with:

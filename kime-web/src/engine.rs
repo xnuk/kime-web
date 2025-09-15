@@ -89,10 +89,14 @@ impl Engine {
 		let category = self.engine.category();
 		let event = CustomEvent::new_with_event_init_dict(
 			"kimeinputcategorychange",
-			CustomEventInit::new().detail(&match category {
-				InputCategory::Hangul => JsValue::from_str("hangul"),
-				InputCategory::Latin => JsValue::from_str("latin"),
-			}),
+			&{
+				let event = CustomEventInit::new();
+				event.set_detail(&match category {
+					InputCategory::Hangul => JsValue::from_str("hangul"),
+					InputCategory::Latin => JsValue::from_str("latin"),
+				});
+				event
+			},
 		)?;
 
 		self.target.dispatch_event(&event)?;

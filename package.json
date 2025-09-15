@@ -3,9 +3,12 @@
 	"version": "0.1.0",
 	"type": "module",
 	"packageManager": "pnpm@10.6.1",
+	"engine": {
+		"node": ">=24"
+	},
 	"scripts": {
-		"build": "esbuild scripts/build.ts --bundle --format=esm --platform=node --external:esbuild --outfile=dist/build.js && node dist/build.js",
-		"dev": "pnpm build 8080"
+		"build": "node scripts/build.ts",
+		"dev": "node scripts/build.ts 8080"
 	},
 	"devDependencies": {
 		"@types/node": "^20.14.10",

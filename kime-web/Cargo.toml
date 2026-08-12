@@ -2,37 +2,37 @@
 name = 'kime-web'
 version = '0.1.0'
 authors = ['Xnuk Shuman <xnuk+kime@xnu.kr>']
-edition = '2021'
+edition = '2024'
 license = 'GPL-3.0-or-later'
-rust-version = '1.78.0'
+rust-version = '1.97.1'
 
 [lib]
 crate-type = ['cdylib']
 
 [dependencies]
-serde_yaml = '0.8.26'
-gloo-events = '0.2.0'
+serde_yaml = '0.9.34'
+gloo-events = '0.3.0'
 
 [dependencies.serde]
-version = '1.0.203'
+version = '1.0.229'
 features = ['derive']
 
 [dependencies.kime-engine-core]
-git = 'https://github.com/xnuk/kime'
-tag = 'v4.0.0-pre.1'
+git = 'https://github.com/Riey/kime'
+branch = 'develop'
 default-features = false
 features = []
 
 [dependencies.kime-engine-backend]
-git = 'https://github.com/xnuk/kime'
-tag = 'v4.0.0-pre.1'
+git = 'https://github.com/Riey/kime'
+branch = 'develop'
 
 [dependencies.kime-engine-backend-hangul]
-git = 'https://github.com/xnuk/kime'
-tag = 'v4.0.0-pre.1'
+git = 'https://github.com/Riey/kime'
+branch = 'develop'
 
 [dependencies.web-sys]
-version = '0.3.78'
+version = '0.3.104'
 features = [
     'KeyboardEvent',
     'HtmlElement',
@@ -42,9 +42,9 @@ features = [
 ]
 
 [dependencies.js-sys]
-version = '0.3.78'
+version = '0.3.104'
 
 [dependencies.wasm-bindgen]
-version = '0.2.101'
+version = '0.2.127'
 default-features = false
 features = []

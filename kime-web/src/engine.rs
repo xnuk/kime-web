@@ -8,6 +8,7 @@ use web_sys::KeyboardEvent;
 
 use crate::glue_kime::KimeEngine;
 use crate::helper::source::{Source, SourceRef};
+use crate::helper::string_error::StringError;
 use crate::web_input::TextInput;
 use crate::web_keycode::from_keyboard_event;
 
@@ -30,7 +31,7 @@ impl Engine {
 	fn install(
 		config: &str,
 		target: TextInput,
-	) -> serde_yaml::Result<MountedIME> {
+	) -> Result<MountedIME, StringError> {
 		let engine = KimeEngine::from_str(config)?;
 
 		let ret = Source::new(Self {

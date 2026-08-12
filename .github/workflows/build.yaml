@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
 
     # bun cache
-    - uses: actions/cache@v4
+    - uses: actions/cache@v5
       with:
         path: ~/.bun/install/cache
         key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
@@ -46,5 +46,5 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/deploy-pages@v4
+    - uses: actions/deploy-pages@v5
       id: deployment

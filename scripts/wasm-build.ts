@@ -199,23 +199,26 @@ const wasmOpt = async ({ runner, outDir, pkg, verbose }: Params) => {
 		)
 		.then(v => v.text())
 
-	const renameEntries = output
-		.trim()
-		.split(/\n/)
-		.map(v => {
-			const splited = lastSplitOnce(v, ' => ')
-			if (splited == null) return null
-			const [original, renamed] = splited
-			return [renamed.trim(), original.trim()] as const
-		})
-		.filter((v): v is Exclude<typeof v, null> => v != null)
 
-	if (renameEntries.length > 0) {
+	const outputEntries = JSON.parse(output) as {
+		imports: [string, string, string][] // ["./kime-web_bg.js", "__wbg_set_once", "A"]
+		exports: [string, string][] // ["__wbindgen_export", "M"]
+	}
+	const functions = Object.create(null) as { [key: string]: string }
+	for (const [_, target, abbr] of outputEntries.imports) {
+		functions[abbr] = target
+	}
+	for (const [target, abbr] of outputEntries.exports) {
+		functions[abbr] = target
+	}
+
+
+	if (outputEntries.exports.length > 0 || outputEntries.imports.length > 0) {
 		const payload = JSON.stringify(
 			{
 				// it's actually encoded with 'a', but wasm-opt does not print this.
 				module: { a: `./${pkg.name}_bg.js` },
-				functions: Object.fromEntries(renameEntries),
+				functions,
 				version: 'xnuk-r1',
 			},
 			null,

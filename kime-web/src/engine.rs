@@ -1,7 +1,7 @@
 use gloo_events::{EventListener, EventListenerOptions};
 use js_sys::JsString;
 use kime_engine_core::{InputCategory, InputResult};
-use wasm_bindgen::prelude::{wasm_bindgen, JsCast, JsError, JsValue};
+use wasm_bindgen::prelude::{JsCast, JsError, JsValue, wasm_bindgen};
 use web_sys::CustomEvent;
 use web_sys::CustomEventInit;
 use web_sys::KeyboardEvent;
